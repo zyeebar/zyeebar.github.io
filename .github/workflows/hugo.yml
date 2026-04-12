@@ -15,8 +15,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -31,7 +30,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.128.0
+      # 【修改 1】提升 Hugo 版本至 0.148.0 以相容 PaperMod
+      HUGO_VERSION: 0.148.0
+      # 【修改 2】強制使用 Node.js 24 以消除 Deprecation 警告
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Install Hugo CLI
         run: |
@@ -40,12 +42,14 @@ jobs:
       - name: Install Dart Sass
         run: sudo snap install dart-sass
       - name: Checkout
-        uses: actions/checkout@v4
+        # 【修改 3】升級至 v6 支援 Node.js 24
+        uses: actions/checkout@v6
         with:
           submodules: recursive
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        # 【修改 4】升級至 v6
+        uses: actions/configure-pages@v6
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Build with Hugo
@@ -57,7 +61,8 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        # 【修改 5】升級至 v4
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./public
 
@@ -71,4 +76,5 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v5
+        # 【修改 6】升級至 v6
+        uses: actions/deploy-pages@v6
