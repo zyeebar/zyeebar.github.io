@@ -31,3 +31,12 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener('contextmenu', function (e) {
+    // 只要點擊的是圖片，就直接沒收右鍵選單
+    if (e.target.tagName === 'IMG') {
+      e.preventDefault();
+    }
+  }, false);
+</script>

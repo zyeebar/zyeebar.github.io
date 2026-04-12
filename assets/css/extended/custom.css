@@ -99,6 +99,30 @@ blockquote {
    3. 影像設定與深色濾鏡 (Images & Filters)
    ============================================================ */
 
+   /* 全站圖片共同防護 (禁止長按、禁止拖拽) --- */
+.post-content img, 
+.inventory-grid img, 
+.kendo-sashiko-intro img {
+    -webkit-touch-callout: none !important; /* 禁止 iOS 長按選單 */
+    -webkit-user-drag: none !important;     /* 禁止滑鼠拖拽圖片 */
+    user-select: none !important;           /* 禁止選取 */
+    -webkit-user-select: none;
+}
+
+/* --- 2. Inventory / Intro 專用：完全鎖死 (不可點擊) --- */
+/* 透過 JS/Shortcode 自動加入的 .no-zoom 類別 */
+.no-zoom img, 
+img.no-zoom{
+    pointer-events: none !important; 
+    cursor: default !important;
+}
+
+/* --- 3. Spec 專用：保留點擊功能，但沒收右鍵 --- */
+/* 這部分不寫 pointer-events: none，否則 medium-zoom 會失效 */
+.post-content img:not(.no-zoom) {
+    cursor: zoom-in; /* 提示可以放大 */
+}
+
 /* 基礎容器樣式 */
 .img-3-2, .img-fit {
     margin-top: 80px !important;    
@@ -178,7 +202,7 @@ body.dark figcaption,
     height: 100%; 
     object-fit: cover; 
     display: block;
-    aspect-ratio: 3 / 4; 
+    aspect-ratio: 3 / 4;
 }
 
 @media (max-width: 768px) {

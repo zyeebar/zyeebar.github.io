@@ -1,23 +1,29 @@
 {{ $src := .Get "src" }}
 {{ $img := .Page.Resources.GetMatch $src }}
 
+{{/* 判斷是否為 Spec 頁面，或是手動指定要放大 */}}
+{{ $isSpec := eq .Page.Section "spec" }}
+{{ $allowZoom := and $isSpec (ne (.Get "zoom") "false") }}
+
 {{ if $img }}
   {{ $tiny := $img.Resize "480x webp" }}
   {{ $medium := $img.Resize "800x webp" }}
   {{ $large := $img.Resize "1200x webp" }}
-  <figure class="{{ .Get "class" }}">
+  
+  {{/* 如果不是 Spec 且不允許放大，加上 no-zoom class */}}
+  <figure class="{{ .Get "class" }}{{ if not $allowZoom }} no-zoom{{ end }}">
     <img 
       src="{{ $medium.RelPermalink }}" 
       srcset="{{ $tiny.RelPermalink }} 480w, {{ $medium.RelPermalink }} 800w, {{ $large.RelPermalink }} 1200w"
       sizes="(max-width: 768px) 100vw, 720px"
       loading="lazy" 
       alt="{{ .Get "alt" }}"
-      data-zoom-src="{{ $img.RelPermalink }}"
-      {{ if in (.Get "class") "img-3-2" }}data-aspect="3-2"{{ end }}
-      {{ if in (.Get "class") "img-grid" }}data-aspect="3-4"{{ end }}
+      {{ if $allowZoom }}
+        data-zoom-src="{{ $img.RelPermalink }}" {{/* 只有 Spec 頁面會輸出原圖路徑 */}}
+      {{ end }}
     >
     {{ with .Get "caption" }}<figcaption>{{ . }}</figcaption>{{ end }}
   </figure>
 {{ else }}
-  <img src="{{ $src | relURL }}" alt="{{ .Get "alt" }}" {{ if in (.Get "class") "img-3-2" }}data-aspect="3-2"{{ end }}>
+  <img src="{{ $src | relURL }}" alt="{{ .Get "alt" }}" class="no-zoom">
 {{ end }}
