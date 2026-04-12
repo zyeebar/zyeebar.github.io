@@ -1,3 +1,3 @@
 ---
-title: "Spec"
+title: "SPEC"
 ---

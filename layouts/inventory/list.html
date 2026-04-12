@@ -1,0 +1,53 @@
+{{ define "main" }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+</header>
+
+<div class="inventory-grid">
+    {{ $images := .Resources.ByType "image" }}
+    {{ range $images }}
+    <div class="inventory-item">
+        <img src="{{ .RelPermalink }}" 
+             loading="lazy" 
+             alt="Spec-item" 
+             class="inventory-img"
+             /* 這裡可以選擇是否保留 medium-zoom */
+             data-zoomable>
+    </div>
+    {{ end }}
+</div>
+
+<style>
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 自動填充網格 */
+    gap: 8px; /* 極窄邊距，展現冷峻感 */
+    padding: 20px 0;
+}
+
+.inventory-item {
+    aspect-ratio: 1 / 1; /* 強制正方形網格，像標本室一樣規整 */
+    overflow: hidden;
+    background: var(--border);
+}
+
+.inventory-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 統一裁切 */
+    filter: grayscale(0.2); /* 微弱灰階，增加冷感 */
+    transition: filter 0.3s ease;
+}
+
+.inventory-img:hover {
+    filter: grayscale(0); /* 游標移入時恢復顏色 */
+}
+
+@media (max-width: 768px) {
+    .inventory-grid {
+        grid-template-columns: repeat(2, 1fr); /* 手機版二分格 */
+        gap: 4px;
+    }
+}
+</style>
+{{ end }}

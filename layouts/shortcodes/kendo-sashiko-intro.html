@@ -4,34 +4,45 @@
     <p>Kendo & Sashiko，PC 最知名最具代表性的系列、也是品牌最初創立的初衷。吉田父子在國外古物市集上看到了來自日本的 Sashiko 衣物，因此產生了結合藍染刺繡工藝和洋服版型的靈感</p>
 
     <ul style="list-style-type: none; padding-left: 0;">
-        <li style="margin-bottom: 64px;">
-            <p>
-                <strong class="series-title">Kendo</strong> -- 傳統劍道服為了強韌的保護效果，把棉線擰成粗棉束、再用棉束製成衣物，PC 改為使用海島棉，外觀在系列中最為低調
-            </p>
-            <figure class="img-3-2">
-                <img src="/images/series/kendo.JPEG" alt="Kendo" data-aspect="3-2">
-                <figcaption>海島棉劍道布料</figcaption>
-            </figure>
-        </li>
+        {{- /* 定義系列資料，便於自動化處理 */ -}}
+        {{- $series := slice 
+            (dict "id" "Kendo" "title" "Kendo" "desc" "傳統劍道服為了強韌的保護效果，把棉線擰成粗棉束、再用棉束製成衣物，PC 改為使用海島棉，外觀在系列中最為低調" "img" "images/series/kendo.JPEG" "cap" "海島棉劍道布料")
+            (dict "id" "Sashiko" "title" "Sashiko" "desc" "底布是海島棉紗布，相當蓬鬆柔軟，在底布上使用不同的刺子繡手法，幾乎每季都會調整布料跟刺繡配方，最近幾季走向輕量化的趨勢。個人認為是實穿性跟外型最協調的系列" "img" "images/series/sashiko.JPEG" "cap" "紗布與刺子")
+            (dict "id" "Kogin" "title" "Kogin" "desc" "中文名稱是小巾刺，一種源自青森縣的刺繡流派，特徵是極高密度的幾何圖形，跟 Sashiko 一樣使用海島棉紗布、但刺繡手法浮誇許多。根據 PC 目前轉型的方向來看，未來大概沒什麼機會看到 Kogin 系列商品了" "img" "images/series/kogin.JPG" "cap" "紗布與小巾刺")
+        -}}
 
+        {{- range $series -}}
         <li style="margin-bottom: 64px;">
             <p>
-                <strong class="series-title">Sashiko</strong> -- 底布是海島棉紗布，相當蓬鬆柔軟，在底布上使用不同的刺子繡手法，幾乎每季都會調整布料跟刺繡配方，最近幾季走向輕量化的趨勢。個人認為是實穿性跟外型最協調的系列
+                <strong class="series-title">{{ .title }}</strong> -- {{ .desc }}
             </p>
             <figure class="img-3-2">
-                <img src="/images/series/sashiko.JPEG" alt="Sashiko" data-aspect="3-2">
-                <figcaption>紗布與刺子</figcaption>
+                {{- /* 嘗試從 assets 獲取圖片資源進行處理 */ -}}
+                {{- $image := resources.Get .img -}}
+                
+                {{- if $image -}}
+                    {{- /* 產生不同尺寸的 WebP 縮圖 */ -}}
+                    {{- $tiny := $image.Resize "480x webp" -}}
+                    {{- $medium := $image.Resize "800x webp" -}}
+                    {{- $large := $image.Resize "1200x webp" -}}
+                    
+                    <img 
+                        src="{{ $medium.RelPermalink }}" 
+                        srcset="{{ $tiny.RelPermalink }} 480w, {{ $medium.RelPermalink }} 800w, {{ $large.RelPermalink }} 1200w"
+                        sizes="(max-width: 768px) 100vw, 720px"
+                        alt="{{ .title }}" 
+                        loading="lazy"
+                        data-aspect="3-2"
+                        data-zoom-src="{{ $image.RelPermalink }}"
+                    >
+                {{- else -}}
+                    {{- /* 若找不到資源，則退回原始靜態路徑 */ -}}
+                    <img src="{{ .img | relURL }}" alt="{{ .title }}" data-aspect="3-2">
+                {{- end -}}
+                
+                <figcaption>{{ .cap }}</figcaption>
             </figure>
         </li>
-
-        <li style="margin-bottom: 64px;">
-            <p>
-                <strong class="series-title">Kogin</strong> -- 中文名稱是小巾刺，一種源自青森縣的刺繡流派，特徵是極高密度的幾何圖形，跟 Sashiko 一樣使用海島棉紗布、但刺繡手法浮誇許多。根據 PC 目前轉型的方向來看，未來大概沒什麼機會看到 Kogin 系列商品了
-            </p>
-            <figure class="img-3-2">
-                <img src="/images/series/kogin.JPG" alt="Kogin" data-aspect="3-2">
-                <figcaption>紗布與小巾刺</figcaption>
-            </figure>
-        </li>
+        {{- end -}}
     </ul>
 </div>
