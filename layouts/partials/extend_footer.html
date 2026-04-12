@@ -1,0 +1,26 @@
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const images = document.querySelectorAll(".post-content img");
+    
+    images.forEach(img => {
+      if (img.closest('.img-3-2')) {
+          img.setAttribute('data-aspect', '3-2');
+          customMargin = 80;
+      } else if (img.closest('.img-grid')) {
+          img.setAttribute('data-aspect', '3-4');
+          customMargin = 40;
+      } else if (img.closest('.img-fit')) {
+          img.setAttribute('data-aspect', 'fit');
+          // 關鍵調整：縮小邊距 = 讓圖片在螢幕中佔比大增 (約原本的 2 倍感)
+          customMargin = 40; 
+      }
+
+      mediumZoom(img, {
+        margin: customMargin,
+        background: document.body.classList.contains('dark') ? '#242426' : '#fafafa',
+        scrollOffset: 0
+      });
+    });
+  });
+</script>

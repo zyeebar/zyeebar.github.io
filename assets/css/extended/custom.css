@@ -1,0 +1,282 @@
+/* ============================================================
+   1. 核心變數定義 (Variables)
+   ============================================================ */
+
+:root {
+    /* --- Light Mode --- */
+    --theme: #fafafa;
+    --entry: #fafafa;
+    --primary: #1a1a1a;       /* 主要文字與標題 */
+    --secondary: #6e6e73;     /* 次要文字、Meta、Caption */
+    --border: #eeeeee;        /* 邊框與裝飾線 */
+    --content-width: 720px;
+}
+
+body.dark, [data-theme='dark'] {
+    /* --- Dark Mode (溫潤深灰方案) --- */
+    --theme: #242426 !important;
+    --entry: #2c2c2e !important;
+    --primary: #e5e5ea !important;
+    --secondary: #98989d !important;
+    --border: #38383a !important;
+}
+
+/* ============================================================
+   2. 基礎排版與全域樣式 (Typography & Global)
+   ============================================================ */
+
+body {
+    background-color: var(--theme);
+    color: var(--primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6; /* 全域基礎行高 */
+}
+
+/* 標題階層 */
+h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+h2 { font-size: 26px; font-weight: 700; margin-top: 48px; margin-bottom: 16px; }
+h3 { font-size: 22px; font-weight: 700; margin-top: 32px; margin-bottom: 12px; }
+
+/* 正文區塊 */
+.post-content {
+    line-height: 1.8;
+    color: var(--primary);
+    margin-top: 40px;
+}
+
+.post-content p {
+    margin-bottom: 1.8em; /* 增加段落間距，更有呼吸感 */
+}
+
+/* 強調文字 (解決你提到的 Kendo 放大問題) */
+.post-content strong, .kendo-sashiko-intro strong {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* 特化：系列名稱標籤 (推薦加入這個) */
+.series-title {
+    font-size: 1.15em;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+/* 圖片說明 (統一全站 figcaption) */
+figcaption {
+    font-family: "Inter", sans-serif;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    color: var(--secondary) !important;
+    text-align: center;
+    margin-top: 12px;
+    letter-spacing: 0.01em;
+}
+
+/* 其他元素 (維持原樣) */
+.meta { font-size: 14px; color: var(--secondary); margin-top: 10px; }
+
+blockquote {
+    border-left: 3px solid var(--primary) !important;
+    padding-left: 20px;
+    font-style: italic;
+    color: var(--secondary);
+    margin: 2em 0;
+}
+
+.text-note {
+    font-family: "Georgia", serif;
+    font-style: italic;
+    font-size: 0.9em;
+    color: var(--secondary);
+    line-height: 1.5 !important;
+    padding-left: 15px;
+    border-left: 2px solid var(--border);
+}
+
+/* ============================================================
+   3. 影像設定與深色濾鏡 (Images & Filters)
+   ============================================================ */
+
+/* 基礎容器樣式 */
+.img-3-2, .img-fit {
+    margin-top: 80px !important;    
+    margin-bottom: 12px !important;
+    display: block;
+}
+
+/* 圖片通用樣式 (Light Mode) */
+.img-3-2 img, .img-fit img {
+    filter: brightness(0.9) contrast(1.05);
+    width: 85% !important;
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+    transition: filter 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* --- PC-Journal 深色模式圖片濾鏡優化 --- */
+body.dark figure img,
+body.dark .kendo-sashiko-intro figure img,
+body.dark .img-3-2 img, 
+body.dark .img-fit img {
+    /* 強化對比與飽和度，突顯 Sashiko/Kendo 織物紋理 */
+    filter: brightness(0.9) contrast(1.2) saturate(1.1) !important;
+}
+
+/* 圖片說明文字 */
+figcaption, .img-3-2 figcaption, .img-fit figcaption, .kendo-sashiko-intro figcaption {
+    text-align: center;
+    font-style: italic;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    color: var(--secondary);
+    margin-top: 12px;
+    letter-spacing: 0.01em; /* 微調字距，讓斜體更易讀 */
+}
+
+body.dark figcaption,
+[data-theme='dark'] figcaption,
+.dark .kendo-sashiko-intro figcaption {
+    color: var(--secondary) !important;
+}
+
+/* 比例控制 */
+.img-3-2 img {
+    aspect-ratio: 3 / 2 !important; 
+    object-fit: cover !important;
+}
+
+.img-fit img {
+    max-height: 60vh !important; 
+    width: auto !important;
+    height: auto !important;
+}
+
+/* 並排圖片網格 */
+.img-grid {
+    display: flex;
+    align-items: stretch;     
+    gap: 16px;
+    margin-top: 90px !important;    
+    margin-bottom: 12px !important;
+    width: 100%;
+    justify-content: center;
+}
+
+.img-grid figure {
+    flex: 1;
+    margin: 0 !important;
+    display: flex;           
+    flex-direction: column;
+}
+
+.img-grid figure img {
+    width: 100% !important;
+    height: 100%; 
+    object-fit: cover; 
+    display: block;
+    aspect-ratio: 3 / 4; 
+}
+
+@media (max-width: 768px) {
+    .img-grid { flex-direction: column; gap: 32px; }
+}
+
+/* 讓滑鼠移到圖片上時顯示icon */
+.post-content img {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><g stroke-linecap="round"><line x1="12" y1="8" x2="12" y2="16" stroke="white" stroke-width="3"/><line x1="8" y1="12" x2="16" y2="12" stroke="white" stroke-width="3"/><line x1="12" y1="8" x2="12" y2="16" stroke="%231a1a1a" stroke-width="1.5"/><line x1="8" y1="12" x2="16" y2="12" stroke="%231a1a1a" stroke-width="1.5"/></g></svg>') 15 15, zoom-in !important;
+}
+
+/* 2. 放大後 (-)：尺寸 30x30 */
+.medium-zoom-image--opened {
+    z-index: 9999 !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+    width: auto !important; 
+}
+
+/* --- 2. 針對 .img-3-2：放大後維持 3:2 --- */
+img[data-aspect='3-2'].medium-zoom-image--opened {
+    aspect-ratio: 3 / 2 !important;
+}
+
+/* --- 3. 針對 .img-grid：放大後維持你設定的 3:4 --- */
+img[data-aspect='3-4'].medium-zoom-image--opened {
+    aspect-ratio: 6 / 8 !important;
+}
+
+/* --- 4. 針對 .img-fit：放大後維持照片原始比例 (不變形) --- */
+img[data-aspect='fit'].medium-zoom-image--opened {
+    aspect-ratio: auto !important;
+    object-fit: contain !important; /* 確保看到全貌 */
+}
+
+/* 確保背景遮罩也在最上層 */
+.medium-zoom-overlay {
+    z-index: 9998 !important;
+}   
+
+/* --- 深色模式修正 (反轉顏色) --- */
+.dark .post-content img, [data-theme='dark'] .post-content img {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><g stroke-linecap="round"><line x1="12" y1="8" x2="12" y2="16" stroke="black" stroke-width="3"/><line x1="8" y1="12" x2="16" y2="12" stroke="black" stroke-width="3"/><line x1="12" y1="8" x2="12" y2="16" stroke="white" stroke-width="1.5"/><line x1="8" y1="12" x2="16" y2="12" stroke="white" stroke-width="1.5"/></g></svg>') 15 15, zoom-in !important;
+}
+
+.dark .medium-zoom-image--opened, .dark .medium-zoom-overlay,
+[data-theme='dark'] .medium-zoom-image--opened, [data-theme='dark'] .medium-zoom-overlay {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><g stroke-linecap="round"><line x1="8" y1="12" x2="16" y2="12" stroke="black" stroke-width="3"/><line x1="8" y1="12" x2="16" y2="12" stroke="white" stroke-width="1.5"/></g></svg>') 15 15, zoom-out !important;
+}
+
+/* ============================================================
+   4. 個人主頁設定 (Homepage & Profile)
+   ============================================================ */
+
+.profile_inner .avatar {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 50% !important;
+    object-fit: contain !important;
+    max-width: 150px !important; 
+    height: auto !important;
+    padding: 0 !important;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* 深色模式下的貓咪 Icon 優化 */
+body.dark .profile_inner .avatar {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15)) !important;
+    background: #2a2a2a !important; 
+    border: 1px solid #444 !important;
+}
+
+.profile_inner .title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 32px;
+}
+
+.profile_inner .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--secondary);
+    margin-top: 12px;
+}
+
+/* 程式碼區塊 */
+body.dark code {
+    background: #2e2e2e !important;
+    color: #ff79c6;
+}
+
+#menu a {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace !important;
+    text-transform: uppercase; /* 強制大寫 */
+    letter-spacing: 0.12em;    /* 增加字距，展現冷冽感 */
+    font-size: 0.75em !important; /* 縮小字體更顯精緻 */
+    
+    transition: all 0.2s ease;
+}

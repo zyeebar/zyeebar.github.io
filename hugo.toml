@@ -1,0 +1,49 @@
+baseURL = "https://your-domain.com/"
+languageCode = "zh-tw"
+title = "Zyeeee Bar"
+theme = "PaperMod"
+
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+
+# 中間的大頭貼跟簡介
+[params.profileMode]
+    enabled = true # 開啟個人首頁模式
+    title = "Zyeeee Bar" # 截圖中的 John Doe
+    subtitle = "Clothes Geek & Monomaniac."
+    displayFullDisp = true # 是否顯示完整描述
+    
+    # 頭貼設定
+    imageUrl = "images/logo.png" # 圖片路徑，放在 static/images/ 下
+    imageWidth = 350
+    imageHeight = 210
+
+    # 下方的社群按鈕
+    [[params.socialIcons]]
+        name = "instagram"
+        url = "https://www.instagram.com/zyeeee_bar/"
+    [[params.socialIcons]]
+        name = "threads"
+        url = "https://www.threads.com/@zyeeee_bar"
+
+# 右上方選項
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about"
+    weight = 10
+  [[menu.main]]
+    identifier = "blog"
+    name = "Spec"
+    url = "/spec"
+    weight = 20
+
+[params]
+# 1. 建議設為 "auto"（隨系統切換）或 "dark"（強制深色）
+    defaultTheme = "auto" 
+    
+    # 2. 必須確保切換按鈕沒有被隱藏
+    disableThemeToggle = false
