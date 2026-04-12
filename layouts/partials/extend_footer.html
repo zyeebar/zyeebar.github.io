@@ -2,23 +2,30 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const images = document.querySelectorAll(".post-content img");
-    
+    const isMobile = window.innerWidth <= 768;
+
     images.forEach(img => {
-      if (img.closest('.img-3-2')) {
+      let customMargin = 40; // 賦予所有圖片一個初始預設邊距
+
+      if (isMobile) {
+        customMargin = 0; // 手機版強制 0 邊距達成滿版
+      } else {
+        // 電腦版根據 Class 分配邊距
+        if (img.closest('.img-3-2')) {
           img.setAttribute('data-aspect', '3-2');
           customMargin = 80;
-      } else if (img.closest('.img-grid')) {
+        } else if (img.closest('.img-grid')) {
           img.setAttribute('data-aspect', '3-4');
           customMargin = 40;
-      } else if (img.closest('.img-fit')) {
+        } else if (img.closest('.img-fit')) {
           img.setAttribute('data-aspect', 'fit');
-          // 關鍵調整：縮小邊距 = 讓圖片在螢幕中佔比大增 (約原本的 2 倍感)
-          customMargin = 40; 
+          customMargin = 40;
+        }
       }
 
       mediumZoom(img, {
         margin: customMargin,
-        background: document.body.classList.contains('dark') ? '#242426' : '#fafafa',
+        background: 'transparent', // 必須設為透明，CSS 的毛玻璃模糊才看得到
         scrollOffset: 0
       });
     });

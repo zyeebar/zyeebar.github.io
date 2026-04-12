@@ -109,7 +109,7 @@ blockquote {
 /* 圖片通用樣式 (Light Mode) */
 .img-3-2 img, .img-fit img {
     filter: brightness(0.9) contrast(1.05);
-    width: 85% !important;
+    width: 85%;
     display: block;
     margin: 0 auto;
     border-radius: 4px;
@@ -144,12 +144,12 @@ body.dark figcaption,
 }
 
 /* 比例控制 */
-.img-3-2 img {
+.img-3-2 img:not(.medium-zoom-image--opened){
     aspect-ratio: 3 / 2 !important; 
     object-fit: cover !important;
 }
 
-.img-fit img {
+.img-fit img:not(.medium-zoom-image--opened) {
     max-height: 60vh !important; 
     width: auto !important;
     height: auto !important;
@@ -182,7 +182,7 @@ body.dark figcaption,
 }
 
 @media (max-width: 768px) {
-    .img-grid { flex-direction: column; gap: 32px; }
+    .img-grid { flex-direction: column; gap: 24px;}
 }
 
 /* 讓滑鼠移到圖片上時顯示icon */
@@ -205,7 +205,7 @@ img[data-aspect='3-2'].medium-zoom-image--opened {
 
 /* --- 3. 針對 .img-grid：放大後維持你設定的 3:4 --- */
 img[data-aspect='3-4'].medium-zoom-image--opened {
-    aspect-ratio: 6 / 8 !important;
+    aspect-ratio: 3 / 4 !important;
 }
 
 /* --- 4. 針對 .img-fit：放大後維持照片原始比例 (不變形) --- */
@@ -214,9 +214,14 @@ img[data-aspect='fit'].medium-zoom-image--opened {
     object-fit: contain !important; /* 確保看到全貌 */
 }
 
+
+
 /* 確保背景遮罩也在最上層 */
 .medium-zoom-overlay {
     z-index: 9998 !important;
+    background: rgba(255, 255, 255, 0.8) !important; /* 淺色模式半透明 */
+    backdrop-filter: blur(12px) !important;       /* 核心：模糊背景 */
+    -webkit-backdrop-filter: blur(12px) !important;
 }   
 
 /* --- 深色模式修正 (反轉顏色) --- */
@@ -228,7 +233,6 @@ img[data-aspect='fit'].medium-zoom-image--opened {
 [data-theme='dark'] .medium-zoom-image--opened, [data-theme='dark'] .medium-zoom-overlay {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><g stroke-linecap="round"><line x1="8" y1="12" x2="16" y2="12" stroke="black" stroke-width="3"/><line x1="8" y1="12" x2="16" y2="12" stroke="white" stroke-width="1.5"/></g></svg>') 15 15, zoom-out !important;
 }
-
 /* ============================================================
    4. 個人主頁設定 (Homepage & Profile)
    ============================================================ */
