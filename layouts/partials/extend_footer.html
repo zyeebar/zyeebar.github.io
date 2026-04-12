@@ -8,7 +8,7 @@
       let customMargin = 40; // 賦予所有圖片一個初始預設邊距
 
       if (isMobile) {
-        customMargin = 0; // 手機版強制 0 邊距達成滿版
+        return;
       } else {
         // 電腦版根據 Class 分配邊距
         if (img.closest('.img-3-2')) {
