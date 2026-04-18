@@ -125,8 +125,8 @@ img.no-zoom{
 
 /* 基礎容器樣式 */
 .img-3-2, .img-fit {
-    margin-top: 80px !important;    
-    margin-bottom: 12px !important;
+    margin-top: 40px !important;    
+    margin-bottom: 60px !important;
     display: block;
 }
 
@@ -184,8 +184,8 @@ body.dark figcaption,
     display: flex;
     align-items: stretch;     
     gap: 16px;
-    margin-top: 90px !important;    
-    margin-bottom: 12px !important;
+    margin-top: 40px !important;    
+    margin-bottom: 60px !important;
     width: 100%;
     justify-content: center;
 }
