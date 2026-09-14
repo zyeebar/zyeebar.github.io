@@ -63,7 +63,7 @@ PC從早期根植於Katsu桑個人審美愛好的獨立創作，開始更明顯�
 
 {{< figure src="pc_marunouchi.jpg" class="img-3-2" caption="Porter Classic Marunouchi(照片取自官網)" alt="Porter Classic Marunouchi(照片取自官網)" >}}
 
-最終這段合作迎來了第三部曲，從「Porter Classic的電影世紀觀」跨越到
+最終這段合作迎來了第三部曲，從「Porter Classic的電影世界觀」跨越到「Porter Classic這部電影」的階段
 
 
 
