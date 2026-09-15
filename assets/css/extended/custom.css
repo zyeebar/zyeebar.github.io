@@ -257,6 +257,12 @@ img[data-aspect='fit'].medium-zoom-image--opened {
 [data-theme='dark'] .medium-zoom-image--opened, [data-theme='dark'] .medium-zoom-overlay {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none"><g stroke-linecap="round"><line x1="8" y1="12" x2="16" y2="12" stroke="black" stroke-width="3"/><line x1="8" y1="12" x2="16" y2="12" stroke="white" stroke-width="1.5"/></g></svg>') 15 15, zoom-out !important;
 }
+
+/* 深色模式：放大遮罩改為深灰半透明，取代預設的淺色遮罩 */
+body.dark .medium-zoom-overlay,
+[data-theme='dark'] .medium-zoom-overlay {
+    background: rgba(36, 36, 38, 0.85) !important; /* 深色模式半透明，呼應 --theme */
+}
 /* ============================================================
    4. 個人主頁設定 (Homepage & Profile)
    ============================================================ */
